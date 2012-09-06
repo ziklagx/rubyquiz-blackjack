@@ -86,10 +86,7 @@ describe 'Hand' do
 		card = Card.new 'Ace', 'Clubs'
 		hand.push card
 
-		card = Card.new '10', 'Clubs'
-		hand.push card
-
-		hand.points.should eql 21
+		hand.points.should eql 11
 	end
 
 	it 'should give aces low when necessary' do
@@ -104,6 +101,18 @@ describe 'Hand' do
 		hand.push card
 
 		hand.points.should eql 19
+	end
+
+	it 'should value a two aces at 12' do
+		hand = Hand.new
+		card = Card.new 'Ace', 'Clubs'
+		hand.push card
+
+		card = Card.new 'Ace', 'Hearts'
+		hand.push card
+
+		hand.points.should eql 12
+
 	end
 
 	it 'should recognize a soft seventeen' do
@@ -128,20 +137,7 @@ describe 'Hand' do
 		hand.soft_seventeen?.should eql false
 	end
 
-	it 'should value a two aces at 12' do
-		hand = Hand.new
-		card = Card.new 'Ace', 'Clubs'
-		hand.push card
 
-		card = Card.new 'Ace', 'Hearts'
-		hand.push card
-
-		card = Card.new '8', 'Clubs'
-		hand.push card
-
-		hand.points.should eql 19
-
-	end
 
 
 end

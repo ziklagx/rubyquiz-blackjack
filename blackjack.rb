@@ -124,18 +124,34 @@ class Hand < Array
 
 
 	def points
-		hand_points = my_points
+		(self.has_a? 'Ace') ? handle_aces : my_points
+	end
 
-		if(hand_points > 21 && (self.has_a? 'Ace'))
-			
+	def handle_aces
 
+		non_aces = self.select { |card| card.rank != "Ace"}
+		aces = self.select { |card| card.rank == "Ace"}
 
-			hand_points = my_points false
-		end
+		non_ace_points = 0 
+	    non_aces.each {|card| non_ace_points += card.value}
 
+	    aces_to_count_high = aces.size
+		
+		points = 22
+		while points > 21
+			points = non_ace_points
+			points += aces_to_count_high * 11
+			points += aces.size - aces_to_count_high
 
+			if(points < 21 || aces_to_count_high == -1)
+				break;
+			end
 
-		hand_points
+			aces_to_count_high -= 1
+		end 
+
+		points
+
 	end
 
 	def soft_seventeen?
