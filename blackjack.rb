@@ -3,16 +3,31 @@ class BlackJack
 	attr_accessor :shoe
 
 	def play
+		loop do
+			blackjack
+			break if !restart
+		end	
+
+		puts "Goodbye!"
+	end 
+
+	def restart
+		puts "Shall we play again?"
+    	answer = gets.downcase
+    	answer.include? "y"
+	end
+
+	def blackjack
 
 		puts "Let's Play BlackJack!"
-		puts "How many decks in the shoe? (Default is 5)"
-		shoes = gets.to_i
+		# puts "How many decks in the shoe?"
+		# shoes = gets.to_i
 
-		if shoes.nil?
-			shoes = 5
-		end
+		# if shoes.nil?
+		# 	shoes = 5
+		# end
 
-		@shoe = Shoe.new shoes
+		@shoe = Shoe.new
 
 		player1_hand = Hand.new
 		dealer_hand = Hand.new
@@ -140,10 +155,7 @@ class Hand < Array
 
 	def my_points ace_high
 		points = 0
-		self.each do |card|
-			points += card.value ace_high	
-		end
-
+		self.each { |card| points += card.value ace_high }
 		points
 	end
 
@@ -153,12 +165,12 @@ class Shoe < Array
 
 	def initialize number_of_decks=3
   		
-	  	number_of_decks.times {	Deck.new.each { |c| self.push c}}
+	  	number_of_decks.times {	Deck.new.each { |card| self.push card}}
 	  	shuffle!
   	end
 
 	def shuffle!
-	  	size.downto(1) { |n| push delete_at(rand(n)) }
+	  	size.downto(1) { |card| push delete_at(rand(card)) }
 		self
 	end
 

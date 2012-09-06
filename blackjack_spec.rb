@@ -128,6 +128,21 @@ describe 'Hand' do
 		hand.soft_seventeen?.should eql false
 	end
 
+	it 'should value a two aces at 12' do
+		hand = Hand.new
+		card = Card.new 'Ace', 'Clubs'
+		hand.push card
+
+		card = Card.new 'Ace', 'Hearts'
+		hand.push card
+
+		card = Card.new '8', 'Clubs'
+		hand.push card
+
+		hand.points.should eql 19
+
+	end
+
 
 end
 
