@@ -115,6 +115,24 @@ describe 'Hand' do
 
 	end
 
+	it 'should value a bust with aces' do
+		hand = Hand.new
+		card = Card.new 'Ace', 'Clubs'
+		hand.push card
+
+		card = Card.new '9', 'Hearts'
+		hand.push card
+
+		card = Card.new 'Jack', 'Hearts'
+		hand.push card
+
+		card = Card.new '3', 'Hearts'
+		hand.push card
+
+		hand.points.should eql 23
+
+	end
+
 	it 'should recognize a soft seventeen' do
 		hand = Hand.new
 		card = Card.new 'Ace', 'Clubs'

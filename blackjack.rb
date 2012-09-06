@@ -98,8 +98,7 @@ class BlackJack
 			
 			card = @shoe.draw
 			hand.push card
-			puts "You picked up a #{card.name}"
-			puts hand
+			puts "You picked up a #{card.name} for #{hand.points}"
 
 			if( hand.points > 21 )
 				return
@@ -142,12 +141,10 @@ class Hand < Array
 			points = non_ace_points
 			points += aces_to_count_high * 11
 			points += aces.size - aces_to_count_high
-
+			aces_to_count_high -= 1
 			if(points < 21 || aces_to_count_high == -1)
 				break;
 			end
-
-			aces_to_count_high -= 1
 		end 
 
 		points
