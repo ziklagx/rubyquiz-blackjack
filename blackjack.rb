@@ -124,17 +124,22 @@ class Hand < Array
 
 
 	def points
-		hand_points = my_points true
+		hand_points = my_points
 
 		if(hand_points > 21 && (self.has_a? 'Ace'))
+			
+
+
 			hand_points = my_points false
 		end
+
+
 
 		hand_points
 	end
 
 	def soft_seventeen?
-		if((self.has_a? 'Ace') && (my_points true == 17))
+		if((self.has_a? 'Ace') && (my_points == 17))
 			return true
 		end
 
@@ -153,7 +158,7 @@ class Hand < Array
 
 	private
 
-	def my_points ace_high
+	def my_points ace_high=true
 		points = 0
 		self.each { |card| points += card.value ace_high }
 		points
