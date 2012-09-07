@@ -20,12 +20,6 @@ class BlackJack
 	def blackjack
 
 		puts "Let's Play BlackJack!"
-		# puts "How many decks in the shoe?"
-		# shoes = gets.to_i
-
-		# if shoes.nil?
-		# 	shoes = 5
-		# end
 
 		@shoe = Shoe.new
 
@@ -40,9 +34,8 @@ class BlackJack
 		puts player1_hand
 
 		puts "Dealer's showing:"
-		puts dealer_hand
+		puts dealer_hand player1_hand
 
-		# Deal with Blackjack
 		if player1_hand.points == 21
 			puts "Blackjack!"
 			puts "You win!"
@@ -56,7 +49,7 @@ class BlackJack
 			return
 		end
 
-		dealer_turn dealer_hand
+		dealer_turn dealer_hand player1_hand
 
 		if(dealer_hand.points > 21 )
 			puts "Dealer Busts with #{dealer_hand.points}. You Win!"
@@ -70,9 +63,9 @@ class BlackJack
 				
 	end
 
-	def dealer_turn hand
+	def dealer_turn hand, player_hand
 
-		while(hand.points < 16) do
+		while(hand.points < player_hand) do
 			card =  @shoe.draw
 			hand.push card
 			puts "Dealer draws a #{card.name} for #{hand.points}."
@@ -118,6 +111,7 @@ class BlackJack
 	end
 
 end
+
 
 class Hand < Array
 

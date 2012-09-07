@@ -115,6 +115,15 @@ describe 'Hand' do
 
 	end
 
+	it 'should handle a large number of aces ' do
+		
+		hand = Hand.new
+		21.times {hand.push Card.new 'Ace', 'Clubs'}
+
+		hand.points.should eql 21
+
+	end
+
 	it 'should value a bust with aces' do
 		hand = Hand.new
 		card = Card.new 'Ace', 'Clubs'
